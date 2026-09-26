@@ -67,3 +67,4 @@ class UserResponse(BaseModel):
     name: str
     email: EmailStr
     role: UserRole
+    created_at: Optional[datetime]=None

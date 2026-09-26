@@ -15,7 +15,14 @@ async function request(method, path, body) {
   const res = await fetch(`${BASE_URL}${path}`, opts)
   if (res.status === 204) return null   // DELETE returns no body
   const data = await res.json()
-  if (!res.ok) throw new Error(data.detail || 'Request failed')
+  if (!res.ok) {
+  console.log('API ERROR:', data)
+  throw new Error(
+    typeof data.detail === 'string'
+      ? data.detail
+      : JSON.stringify(data.detail)
+  )
+}
   return data
 }
 
@@ -34,7 +41,7 @@ export const getrequests = (params = '') => request('GET', `/requests${params}`)
 export const getrequest = (id) => request('GET', `/requests/${id}`)
 export const createrequest = (body) => request('POST', '/requests', body)
 export const deleterequest = (id) => request('DELETE', `/requests/${id}`)
-export const assignrequest = (id, body) => request('PATCH', `/requests/${id}/assign`, body)
+export const assignrequest = (id, body) => request('PUT', `/requests/${id}/assign`, body)
 export const updaterequestStatus = (id, body) => request('PATCH', `/requests/${id}/status`, body)
 
 // --- Comments ---

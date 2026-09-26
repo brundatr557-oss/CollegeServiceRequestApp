@@ -6,7 +6,7 @@ import { getUsers, createUser, deleteUser } from '../api/client'
 
 const ROLES = ['student', 'faculty', 'service_staff','service_lead', 'admin']
 
-const blank = { name: '', email: '', password: '', role: 'Student' }
+const blank = { name: '', email: '', password: '', role: 'student' }
 
 export default function UsersPage() {
   const [users, setUsers] = useState([])
